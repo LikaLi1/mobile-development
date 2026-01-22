@@ -8,7 +8,8 @@ class Proga
         var userBalance = 10000;
         var userBalance2 = 10000;
         int money;
-        
+        var cardNumber = "1894629649";
+
         while (true)
         {
             Console.WriteLine("Внесите сумму, которую хотите внести: ");
@@ -37,7 +38,7 @@ class Proga
         }
 
         var moneyToTakeOff = money;
-        if(moneyToTakeOff > userBalance)
+        if (moneyToTakeOff > userBalance)
         {
             Console.WriteLine("Недостаточно средств!");
         }
@@ -56,24 +57,22 @@ class Proga
                 Console.WriteLine("Вы ввели неверное значение!");
                 continue;
             }
-            else if (!int.TryParse(userInputString3, out money))
+            else if (userInputString3 != cardNumber)
             {
                 Console.WriteLine("Вы ввели неверные данные второго пользователя!");
             }
-                break;
-            }
+            break;
+        }
 
-            var moneyToSend = money;
-            if (moneyToSend > userBalance)
-            {
-                Console.WriteLine("Недостаточно средств!");
-            }
-            else
-            {
-                userBalance -= moneyToSend;
-                userBalance2 += moneyToSend;
-            }
-
+        var moneyToSend = money;
+        if (moneyToSend > userBalance)
+        {
+            Console.WriteLine("Недостаточно средств!");
+        }
+        else
+        {
+            userBalance -= moneyToSend;
+            userBalance2 += moneyToSend;
         }
     }
 }
