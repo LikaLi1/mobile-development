@@ -14,16 +14,17 @@ class Proga
         {
             Console.WriteLine("Внесите сумму, которую хотите внести: ");
             var userInputString = Console.ReadLine();
-            if (int.TryParse(userInputString, out money))
+            if (!int.TryParse(userInputString, out money))
             {
                 Console.WriteLine("Вы ввели неверное значение!");
                 continue;
             }
+
+            var moneyToDeposit = money;
+            userBalance += moneyToDeposit;
+            Console.WriteLine($"Сумма успешно внесена! Ваш новый баланс: {userBalance}");
             break;
         }
-
-        var moneyToDeposit = money;
-        userBalance += moneyToDeposit;
 
         while (true)
         {
@@ -34,45 +35,47 @@ class Proga
                 Console.WriteLine("Вы ввели неверное значение!");
                 continue;
             }
+
+            if (money > userBalance)
+            {
+                Console.WriteLine("Недостаточно средств на счете!");
+                continue;
+            }
+
+            userBalance -= money;
+            Console.WriteLine($"Сумма успешно снята! Ваш новый баланс: {userBalance}");
             break;
         }
-
-        var moneyToTakeOff = money;
-        if (moneyToTakeOff > userBalance)
-        {
-            Console.WriteLine("Недостаточно средств!");
-        }
-        else
-        {
-            userBalance -= moneyToTakeOff;
-        }
-
 
         while (true)
         {
             Console.WriteLine("Внесите сумму, которую хотите перевести: ");
             var userInputString3 = Console.ReadLine();
-            if (!int.TryParse(userInputString3, out money))
+            if (!int.TryParse(userInputString3, out  money))
             {
                 Console.WriteLine("Вы ввели неверное значение!");
                 continue;
             }
-            else if (userInputString3 != cardNumber)
+
+            Console.WriteLine("Введите номер карты второго пользователя: ");
+            var userInputString4 = Console.ReadLine();
+            if (userInputString4 != cardNumber)
             {
                 Console.WriteLine("Вы ввели неверные данные второго пользователя!");
+                continue;
             }
-            break;
-        }
 
-        var moneyToSend = money;
-        if (moneyToSend > userBalance)
-        {
-            Console.WriteLine("Недостаточно средств!");
-        }
-        else
-        {
+            var moneyToSend = money;
+            if (moneyToSend > userBalance)
+            {
+                Console.WriteLine("Недостаточно средств!");
+                continue;
+            }
+
             userBalance -= moneyToSend;
             userBalance2 += moneyToSend;
+            Console.WriteLine($"Перевод успешно выполнен! Остаток на вашем счете: {userBalance}");
+            break;
         }
     }
 }
