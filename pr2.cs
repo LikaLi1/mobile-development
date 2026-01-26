@@ -51,7 +51,7 @@ class Proga
         {
             Console.WriteLine("Внесите сумму, которую хотите перевести: ");
             var userInputString3 = Console.ReadLine();
-            if (!int.TryParse(userInputString3, out  money))
+            if (!int.TryParse(userInputString3, out money))
             {
                 Console.WriteLine("Вы ввели неверное значение!");
                 continue;
