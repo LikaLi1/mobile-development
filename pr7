@@ -128,3 +128,50 @@ fun main() {
         }
     }
 }
+
+
+
+data class WarehouseItem(
+    val name: String,
+    val quantity: Int,
+    val price: Double?,
+    val category: String,
+    val supplier: String?,
+    val comment: String?
+)
+
+fun main() {
+    val items = listOf(
+        WarehouseItem("Телевизор", 3, 30000.0, "Электроника", "Samsung", null),
+        WarehouseItem("Мышь", 10, 999.99, "Электроника", null, null),
+        WarehouseItem("Клавиатура", 2, 1999.99, "Электроника", "Logitech", null),
+        WarehouseItem("USB-кабель", 50, 150.0, "Аксессуары", null, null),
+        WarehouseItem("Наушники", 4, 2999.0, "Аудио", "Sony", null),
+        WarehouseItem("Ноутбук", 1, 60000.0, "Электроника", "Acer", null),
+        WarehouseItem("Ремень", 8, 499.99, "Одежда", null, null),
+        WarehouseItem("Чехол", 6, 799.0, "Аксессуары", "Apple", null)
+    )
+
+    println("Меньше 5 штук:")
+    items.filter { it.quantity < 5 }.forEach { println(it.name) }
+
+    println("Без поставщика:")
+    items.filter { it.supplier == null }.forEach { println(it.name) }
+
+    println("Электроника:")
+    items.filter { it.category == "Электроника" }.forEach { println(it.name) }
+
+    val newItems = items.map {
+        if (it.category == "Электроника" && it.price != null)
+            it.copy(price = it.price * 0.85)
+        else it
+    }
+    println("Обновленные цены электроники:")
+    newItems.filter { it.category == "Электроника" }.forEach {
+        println("${it.name}: ${it.price}")
+    }
+
+    val part = "п"
+    val found = items.find { it.name.contains(part, ignoreCase = true) }
+    println("Найден: ${found?.name ?: "ничего"}")
+}
