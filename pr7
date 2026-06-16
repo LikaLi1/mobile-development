@@ -175,3 +175,45 @@ fun main() {
     val found = items.find { it.name.contains(part, ignoreCase = true) }
     println("Найден: ${found?.name ?: "ничего"}")
 }
+
+
+
+data class User(
+    val login: String,
+    val email: String,
+    val age: Int,
+    val status: String,
+    val phone: String?,
+    val bio: String?
+)
+
+fun main() {
+    val users = listOf(
+        User("Петя", "петя@ex.com", 25, "user", "111", "Мужчина"),
+        User("Мария", "Мария@ex.com", 30, "moderator", null, null),
+        User("Костя", "Костя@ex.com", 20, "guest", "222", null),
+        User("Вика", "Вика@ex.com", 35, "admin", null, "Администратор"),
+        User("Женя", "женя@ex.com", 28, "user", "333", null),
+        User("Ктото", "ктото@ex.com", 40, "user", null, null),
+        User("Ага", "ага@ex.com", 22, "guest", "444", null),
+        User("ДокторКто", "кто@ex.com", 27, "user", null, "Любит спорт"),
+        User("Антон", "антон@ex.com", 33, "moderator", "555", null),
+        User("Лусине", "лусине@ex.com", 19, "guest", null, null)
+    )
+
+    println("Возраст 20-30:")
+    users.filter { it.age in 20..30 }.forEach { println(it.login) }
+
+    val userFound = users.find { it.login == "alex" }
+    println("Найден пользователь:")
+    println("Логин: ${userFound?.login ?: "не найден"}") // using safe call
+
+    println("Без телефона:")
+    users.filter { it.phone == null }.forEach { println(it.login) }
+
+    println("Всего: ${users.size}")
+    println("Средний возраст: ${users.map { it.age }.average()}")
+    val old = users.maxByOrNull { it.age }
+    println("Самый старший:")
+    println("Логин: ${oldest?.login}")
+}
