@@ -55,3 +55,76 @@ for (game in games) {
         else -> println("${game.name} - Неизвестный жанр")
     }
 }
+
+
+
+data class Movie(
+    val name: String,
+    val year: Int,
+    val genre: String,
+    val duration: Int,
+    val rating: Int?,
+    val description: String?
+)
+
+fun main() {
+    val movies: List<Movie> = listOf(
+        Movie("Начало", 1000, "Action", 148, 9, "Фильм о снах"),
+        Movie("Колобок", 2022, "Sci-Fi", 192, 8, "Продолжение популярного фильма"),
+        Movie("КунгФуПанда", 2019, "Crime", 209, 7, null),
+        Movie("Кибрги", 2021, "Sci-Fi", 155, 8, null),
+        Movie("Доктор кто", 2021, "Action", 148, 9, "Человек-паук в новом кино"),
+        Movie("Я больше не знаю", 2022, "Action", 155, 8, "Бэтмен в новом образе"),
+        Movie("Тут тоже", 2020, "Action", 150, 7, null)
+    )
+
+    for (movie in movies) {
+        println("Название: ${movie.name}")
+        println("Год: ${movie.year}")
+        println("Жанр: ${movie.genre}")
+        println("Длительность: ${movie.duration} минут")
+        println("Рейтинг: ${movie.rating ?: "рейтинг отсутствует"}")
+        println("Описание: ${movie.description ?: "описание отсутствует"}")
+        println()
+    }
+
+    val longestMovie = movies.maxByOrNull { it.duration }
+    val maxRatingMovie = movies.maxByOrNull { it.rating ?: 0 }
+
+    println("Самый длинный фильм: ${longestMovie?.name} (${longestMovie?.duration} минут)")
+    println("Максимальный рейтинг: ${maxRatingMovie?.name} (Рейтинг: ${maxRatingMovie?.rating ?: "недоступен"})")
+    println()
+
+    val averageRating = movies.mapNotNull { it.rating }.average()
+    println("Средний рейтинг фильмов: $averageRating")
+
+    val genreCount = movies.groupingBy { it.genre }.eachCount()
+    println("По жанрам:")
+    for ((genre, count) in genreCount) {
+        println("$genre: $count")
+    }
+    println()
+
+    val movieNew = movies.filter { it.year > 2020 }
+    println("Фильмы новые:")
+    movieNew.forEach { println(it.name) }
+    println()
+
+    val searchName = "КунгФуПанда"
+    val foundMovie = movies.find { it.name.equals(searchName, ignoreCase = true) }
+    if (foundMovie != null) {
+        println("Фильм $searchName найден: ${foundMovie.name}")
+    } else {
+        println("Фильм $searchName не найден")
+    }
+    println()
+
+    for (movie in movies) {
+        when (movie.genre) {
+            "Action" -> println("${movie.name} - Боевик")
+            "Sci-Fi" -> println("${movie.name} - Научная фантастика")
+            "Crime" -> println("${movie.name} - Криминальный фильм")
+            else -> println("${movie.name} - Неизвестный жанр")
+        }
+    }
+}
