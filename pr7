@@ -1,0 +1,57 @@
+data class Game(
+    val name: String,
+    val genre: String,
+    val price: Int?,
+    val rating: Int?,
+    val description: String?
+)
+
+val games = listOf(
+    Game("The Witcher 3", "RPG", 2000, 9, "Приключенческая ролевая игра"),
+    Game("GTA V", "Action", 1500, 8, "Открытый мир и экшен"),
+    Game("Civilization VI", "Strategy", null, 7, null),
+    Game("Amnesia", "Horror", 800, 8, null),
+    Game("Mario Kart 8", "Racing", 1200, 7, "Гонки на картингах"),
+    Game("Dark Souls", "Action", 1800, 9, "Сложная ролевая игра")
+)
+
+for (game in games) {
+    println("Название: ${game.name}")
+    println("Жанр: ${game.genre}")
+    println("Цена: ${game.price ?: "Цена неизвестна"}")
+    println("Рейтинг: ${game.rating ?: "Рейтинг отсутствует"}")
+    println("Описание: ${game.description ?: "Описание отсутствует"}")
+    println()
+}
+
+val rpgGames = games.filter { it.genre == "RPG" }
+
+val highRatedGames = games.filter { it.rating != null && it.rating > 8 }
+
+println("RPG игры:")
+rpgGames.forEach { println(it.name) }
+println("\nИгры с рейтингом выше 8:")
+highRatedGames.forEach { println(it.name) }
+
+fun findGameByName(name: String): Game? {
+    return games.find { it.name.equals(name, ignoreCase = true) }
+}
+
+val searchName = "Dark Souls"
+val foundGame = findGameByName(searchName)
+if (foundGame != null) {
+    println("Игра найдена: ${foundGame.name}")
+} else {
+    println("Игра не найдена")
+}
+
+for (game in games) {
+    when (game.genre) {
+        "RPG" -> println("${game.name} - Ролевая игра")
+        "Action" -> println("${game.name} - Экшен")
+        "Strategy" -> println("${game.name} - Стратегическая игра")
+        "Horror" -> println("${game.name} - Ужасы")
+        "Racing" -> println("${game.name} - Гонки")
+        else -> println("${game.name} - Неизвестный жанр")
+    }
+}
